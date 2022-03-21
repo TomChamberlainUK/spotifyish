@@ -17,4 +17,6 @@
 
 .content {
   padding-top: 3rem;
+  min-height: calc(100% - 3rem);
+  height: 1px; // To allow children to use percentage heights
 }
