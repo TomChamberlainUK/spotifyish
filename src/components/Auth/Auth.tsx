@@ -11,16 +11,24 @@ export default function Auth({ user, setUser }: Props) {
   // Handle getting user data from spotify API
   useEffect(() => {
 
-    // First we need an access token
-    let accessToken = '';
+    // First we need an access token, try to get one from local storage
+    let accessToken = window.localStorage.getItem('access_token') ?? '';
 
-    // Check to see if the URL contains a hash
-    const hash = window.location.hash;
+    // If there's no available access token, check to see if the URL contains a hash
+    // Spotify's implicit grant auth sends an access token via a hash in the URL
+    if (!accessToken) {
+      const hash = window.location.hash;
 
-    // If there's a hash, attempt to get access token from it then delete the hash
-    if (hash) {
-      accessToken = new URLSearchParams(hash.substr(1)).get('access_token') ?? '';
-      window.history.replaceState('', document.title, window.location.pathname + window.location.search);
+      // If there's a hash, attempt to get access token from it then delete the hash
+      if (hash) {
+        accessToken = new URLSearchParams(hash.substr(1)).get('access_token') ?? '';
+        window.history.replaceState('', document.title, window.location.pathname + window.location.search);
+
+        // If we successfully obtained an access token, update local storage
+        if (accessToken) {
+          window.localStorage.setItem('access_token', accessToken);
+        }
+      }
     }
 
     // If there's no access token available then no requests can be made to the API
@@ -64,6 +72,14 @@ export default function Auth({ user, setUser }: Props) {
     })();
 
   }, [setUser]);
+  
+
+  // Log user out
+  function logOut() {
+    // Remove user info from App state and remove access token from local storage
+    setUser(null);
+    window.localStorage.removeItem('access_token');
+  }
 
 
   // Configure URL for Spotify auth using implicit grant flow:
@@ -94,7 +110,7 @@ export default function Auth({ user, setUser }: Props) {
           : <>
               <img className={styles.profilePicture} src={user.imageUrl} alt={`Spotify profile for ${user.name}`}/>
               <h2>Welcome Back {user.name}!</h2>
-              <button onClick={() => setUser(null)}>Log Out</button>
+              <button onClick={logOut}>Log Out</button>
             </>
       }
     </div>
