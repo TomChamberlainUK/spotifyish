@@ -1,0 +1,23 @@
+.container {
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+
+.italic {
+  font-style: italic;
+}
+
+.icon {
+  font-size: 12rem;
+  font-style: normal;
+  line-height: 100%;
+}
+
+.profilePicture {
+  border-radius: 50%;
+  width: 12rem;
+  aspect-ratio: 1/1;
+}

@@ -1,10 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
+import styles from './Auth.module.scss';
 
 type Props = {
+  user: User | null;
   setUser: React.Dispatch<React.SetStateAction<User | null>>
 }
 
-export default function Auth({ setUser }: Props) {
+export default function Auth({ user, setUser }: Props) {
 
   // Handle getting user data from spotify API
   useEffect(() => {
@@ -81,9 +83,20 @@ export default function Auth({ setUser }: Props) {
   spotifyAuthUrl += '&show_dialog=' + encodeURIComponent(show_dialogue);
 
   return (
-    <>
-      <h2>Welcome!</h2>
-      <a href={spotifyAuthUrl}>Log In!</a>
-    </>
+    <div className={styles.container}>
+      {
+        !user
+          ? <>
+              <i className={styles.icon}>🎧</i>
+              <h2>Welcome to Spotify<span className={styles.italic}>ish</span>!</h2>
+              <a href={spotifyAuthUrl}>Log In!</a>
+            </>
+          : <>
+              <img className={styles.profilePicture} src={user.imageUrl} alt={`Spotify profile for ${user.name}`}/>
+              <h2>Welcome Back {user.name}!</h2>
+              <button onClick={() => setUser(null)}>Log Out</button>
+            </>
+      }
+    </div>
   );
 }

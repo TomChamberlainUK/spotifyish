@@ -14,15 +14,7 @@ export default function App() {
 
   return (
     <Layout>
-      <p>Hello World!</p>
-      <Auth setUser={setUser} />
-      {
-        user &&
-          <>
-            <p>{user.name}</p>
-            <img src={user.imageUrl} alt=""/>
-          </>
-      }
+      <Auth user={user} setUser={setUser} />
     </Layout>
   );
 

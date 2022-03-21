@@ -4,10 +4,6 @@ import App from './App';
 
 describe('App', () => {
 
-  test('Should render', () => {
-    render(<App />);
-    const element = screen.getByText(/Hello World/);
-    expect(element).toBeInTheDocument();
-  });
+  test.todo('Write test');
 
 });
