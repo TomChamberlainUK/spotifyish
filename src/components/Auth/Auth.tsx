@@ -1,14 +1,15 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 
 type Props = {
-  setAccessToken: React.Dispatch<React.SetStateAction<string>>
+  setUser: React.Dispatch<React.SetStateAction<User | null>>
 }
 
-export default function Auth({ setAccessToken }: Props) {
+export default function Auth({ setUser }: Props) {
 
-  // Handle obtaining access token from hash
+  // Handle getting user data from spotify API
   useEffect(() => {
 
+    // First we need an access token
     let accessToken = '';
 
     // Check to see if the URL contains a hash
@@ -20,10 +21,48 @@ export default function Auth({ setAccessToken }: Props) {
       window.history.replaceState('', document.title, window.location.pathname + window.location.search);
     }
 
-    // Update state with access token
-    setAccessToken(accessToken);
+    // If there's no access token available then no requests can be made to the API
+    if (!accessToken) return;
 
-  }, [setAccessToken]);
+    // Fetch user data from spotify API
+    // (We'll use an async IIFE to allow async/await syntax in useEffect)
+    (async function fetchRecentlyPlayedData() {
+
+      // Configure the headers for the GET request
+      const fetchOptions: RequestInit = {
+        headers: {
+          "Accept": "application/json",
+          "Content-Type": "application/json",
+          "Authorization": "Bearer " + accessToken
+        }
+      }
+
+      try {
+        // Send a GET request to the API and stringify the response
+        const response = await fetch('https://api.spotify.com/v1/me', fetchOptions);
+        const data = await response.json();
+
+        // Handle any errors from server
+        if (data.error) {
+          const { error } = data;
+          throw new Error(`(${error.status}) ${error.message}`);
+        }
+
+        // Parse user data from response and update App state
+        setUser({
+          accessToken,
+          name: data.display_name,
+          imageUrl: data.images[0].url
+        });
+
+      } catch(error) {
+        console.error(error);
+      }
+
+    })();
+
+  }, [setUser]);
+
 
   // Configure URL for Spotify auth using implicit grant flow:
   // - Configure query parameters
