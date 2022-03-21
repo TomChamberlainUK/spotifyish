@@ -10,11 +10,4 @@ describe('App', () => {
     expect(element).toBeInTheDocument();
   });
 
-  test('Should provide log in link to Spotify', () => {
-    render(<App />);
-    const linkElement = screen.getByText(/Log In/);
-    const linkUrl = linkElement.getAttribute('href');
-    expect(linkUrl).toMatch(/^https:\/\/accounts\.spotify\.com\/authorize/);
-  })
-
 });
