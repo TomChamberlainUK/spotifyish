@@ -1,7 +1,28 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Layout from './components/Layout/Layout';
 
 export default function App() {
+
+  const [accessToken, setAccessToken] = useState<string>('');
+
+  // Handle obtaining access token from hash
+  useEffect(() => {
+
+    let accessToken = '';
+
+    // Check to see if the URL contains a hash
+    const hash = window.location.hash;
+
+    // If there's a hash, attempt to get access token from it then delete the hash
+    if (hash) {
+      accessToken = new URLSearchParams(hash.substr(1)).get('access_token') ?? '';
+      window.history.replaceState('', document.title, window.location.pathname + window.location.search);
+    }
+
+    // Update state with access token
+    setAccessToken(accessToken);
+
+  }, []);
 
   // Configure URL for Spotify auth using implicit grant flow:
   // - Configure query parameters
@@ -23,7 +44,8 @@ export default function App() {
     <Layout>
       <p>Hello World!</p>
       <a href={spotifyAuthUrl}>Log In!</a>
+      {accessToken && <p>{accessToken}</p>}
     </Layout>
   );
-  
+
 }
