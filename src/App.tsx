@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Layout from './components/Layout/Layout';
 import SignIn from './components/SignIn/SignIn';
-import Profile from './components/Profile/Profile';
+import Dashboard from './components/Dashboard/Dashboard';
 import { useAuth } from './hooks/useAuth';
 
 type User = {
@@ -29,7 +29,7 @@ export default function App() {
           ? <p>Loading</p>
           : !user
             ? <SignIn />
-            : <Profile user={user} signOut={signOut} />
+            : <Dashboard user={user} signOut={signOut} />
       }
     </Layout>
   );

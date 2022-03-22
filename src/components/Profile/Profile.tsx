@@ -10,8 +10,11 @@ export default function Auth({ user, signOut }: Props) {
   return (
     <div className={styles.container}>
       <img className={styles.profilePicture} src={user.imageUrl} alt={`Spotify profile for ${user.name}`}/>
-      <h2>Welcome Back {user.name}!</h2>
-      <button onClick={signOut}>Sign Out</button>
+      <div className={styles.text}>
+        <h2 className={styles.userName}>{user.name}</h2>
+        <p>Welcome Back!</p>
+        <button onClick={signOut}>Sign Out</button>
+      </div>
     </div>
   );
 }
