@@ -1,5 +1,6 @@
 import React from 'react';
 import { screen, render } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import ArtistList, { ArtistListItem } from './ArtistList';
 
 describe('ArtistList', () => {
@@ -22,10 +23,24 @@ describe('ArtistListItem', () => {
     render(
       <ArtistListItem
         name="Rick Astley"
+        onClick={jest.fn()}
       />
     );
     const element = screen.getByText(/Rick Astley/);
     expect(element).toBeInTheDocument();
+  });
+
+  test('Should handle onClick events', () => {
+    const mockCallback = jest.fn();
+    render(
+      <ArtistListItem
+        name="Rick Astley"
+        onClick={mockCallback}
+      />
+    );
+    const element = screen.getByText(/Rick Astley/);
+    userEvent.click(element);
+    expect(mockCallback).toBeCalled();
   });
 
 });

@@ -7,6 +7,8 @@ type ArtistListProps = {
 
 type ArtistListItemProps = {
   name: string;
+  onClick: React.MouseEventHandler<HTMLElement>;
+  isFiltered?: boolean;
 }
 
 export default function ArtistList({ children }: ArtistListProps) {
@@ -17,10 +19,13 @@ export default function ArtistList({ children }: ArtistListProps) {
   )
 }
 
-export function ArtistListItem({ name }: ArtistListItemProps) {
+export function ArtistListItem({ name, isFiltered, onClick }: ArtistListItemProps) {
   return (
-    <li className={styles.itemContainer}>
-      <p className={styles.artistName}>{name}</p>
+    <li
+      className={styles.itemContainer}
+      onClick={onClick}
+    >
+      <p className={`${styles.artistName} && ${isFiltered && styles.isFiltered}`}>{name}</p>
     </li>
   );
 }

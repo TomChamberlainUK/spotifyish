@@ -11,19 +11,26 @@
   overflow-y: scroll;
 }
 
-.artistsContainerHeader {
+%containerHeader {
   z-index: 10;
   position: sticky;
   top: 0;
   display: flex;
   align-items: center;
+  box-sizing: border-box;
   height: 3rem;
   width: 100%;
   background-color: white;
 }
 
+.artistsContainerHeader {
+  @extend %containerHeader;
+  justify-content: space-between;
+  padding-right: 1rem;
+}
+
 .tracksContainerHeader {
-  @extend .artistsContainerHeader;
+  @extend %containerHeader;
   top: 3.25rem;
 }
 

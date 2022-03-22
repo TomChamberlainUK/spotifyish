@@ -25,6 +25,27 @@ export default function Music({ user }: Props) {
 
   const [artists, setArtists] = useState<Artist[]>([]);
   const [tracks, setTracks] = useState<Track[]>([]);
+  const [filteredArtists, setFilteredArtists] = useState<Set<string>>(new Set()); // A list of filtered artists
+
+  // Toggle filtering a single artist
+  function toggleFilteredArtist(id: string) {
+    filteredArtists.has(id)
+      ? filteredArtists.delete(id)
+      : filteredArtists.add(id);
+    setFilteredArtists(new Set(filteredArtists));
+  }
+
+  // Persist filtered artists on refresh
+  useEffect(() => {
+    const filteredArtistsString = window.sessionStorage.getItem('filtered_artists');
+    if (filteredArtistsString) {
+      setFilteredArtists(new Set(filteredArtistsString.split(',')));
+    }
+  }, []);
+  useEffect(() => {
+    const filteredArtistsString = Array.from(filteredArtists).join(',');
+    window.sessionStorage.setItem('filtered_artists', filteredArtistsString);
+  }, [filteredArtists]);
 
   // Handle fetching data from spotify API
   useEffect(() => {
@@ -112,7 +133,14 @@ export default function Music({ user }: Props) {
       <div className={styles.container}>
         <div className={styles.artistsContainer}>
           <div className={styles.artistsContainerHeader}>
-            <h3 className={styles.sectionHeading}>Artists</h3>
+            <h3 className={styles.sectionHeading}>Filter Artists</h3>
+            {
+              // Only display clear filters button when filters are set
+              filteredArtists.size > 0 &&
+                <button onClick={() => setFilteredArtists(new Set())}>
+                  <p>clear</p>
+                </button>
+            }
           </div>
           <ArtistList>
             {
@@ -120,6 +148,8 @@ export default function Music({ user }: Props) {
                 <ArtistListItem
                   key={id}
                   name={name}
+                  isFiltered={filteredArtists.has(id)}
+                  onClick={() => toggleFilteredArtist(id)}
                 />
               ))
             }
@@ -127,11 +157,16 @@ export default function Music({ user }: Props) {
         </div>
         <div className={styles.tracksContainer}>
           <div className={styles.tracksContainerHeader}>
-            <h3 className={styles.sectionHeading}>Tracks</h3>
+            <h3 className={styles.sectionHeading}>Recently Played Tracks</h3>
           </div>
           <TrackGrid>
             {
-              tracks.map(({ id, name, artist, album, imageUrl }) => (
+              // Filter tracks by artist:
+              // - If there are no filters set display all artists
+              // - Else just display filtered artists
+              tracks.filter(({ artistId }) => {
+                return filteredArtists.size === 0 || filteredArtists.has(artistId);
+              }).map(({ id, name, artist, album, imageUrl }) => (
                 <TrackGridItem
                   key={id}
                   name={name}

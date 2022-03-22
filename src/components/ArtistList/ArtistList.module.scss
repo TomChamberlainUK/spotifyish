@@ -10,4 +10,8 @@
 .artistName {
   margin: 0;
   font-weight: bold;
+
+  &.isFiltered {
+    color: red;
+  }
 }
