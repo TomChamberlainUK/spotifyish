@@ -1,0 +1,16 @@
+.container {
+  display: flex;
+  height: 800px;
+  border: solid 0.125rem black;
+}
+
+.artistsContainer {
+  border-right: solid 0.125rem black;
+  width: 33%;
+  min-height: 100%;
+}
+
+.tracksContainer {
+  width: 77%;
+  min-height: 100%;
+}
