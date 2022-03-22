@@ -1,16 +1,36 @@
 .container {
+  position: relative;
   display: flex;
-  height: 800px;
-  border: solid 0.125rem black;
 }
 
 .artistsContainer {
-  border-right: solid 0.125rem black;
+  position: sticky;
+  top: 3.25rem;
   width: 33%;
-  min-height: 100%;
+  height: calc(100vh - 3.25rem);
+  overflow-y: scroll;
+}
+
+.artistsContainerHeader {
+  z-index: 10;
+  position: sticky;
+  top: 0;
+  display: flex;
+  align-items: center;
+  height: 3rem;
+  width: 100%;
+  background-color: white;
+}
+
+.tracksContainerHeader {
+  @extend .artistsContainerHeader;
+  top: 3.25rem;
 }
 
 .tracksContainer {
   width: 77%;
-  min-height: 100%;
+}
+
+.sectionHeading {
+  margin: 0;
 }

@@ -105,13 +105,15 @@ export default function Music({ user }: Props) {
 
   }, [user]);
 
-  
+
   return (
     <>
       <h2>Music</h2>
       <div className={styles.container}>
         <div className={styles.artistsContainer}>
-          <h3>Artists</h3>
+          <div className={styles.artistsContainerHeader}>
+            <h3 className={styles.sectionHeading}>Artists</h3>
+          </div>
           <ArtistList>
             {
               artists.map(({ id, name }) => (
@@ -124,6 +126,9 @@ export default function Music({ user }: Props) {
           </ArtistList>
         </div>
         <div className={styles.tracksContainer}>
+          <div className={styles.tracksContainerHeader}>
+            <h3 className={styles.sectionHeading}>Tracks</h3>
+          </div>
           <TrackGrid>
             {
               tracks.map(({ id, name, artist, album, imageUrl }) => (
