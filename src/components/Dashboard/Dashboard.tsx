@@ -13,7 +13,7 @@ export default function Dashboard({ user, signOut }: Props) {
     <div className={styles.container}>
       <h1>Dashboard</h1>
       <Profile user={user} signOut={signOut} />
-      <Music />
+      <Music user={user} />
     </div>
   );
 }

@@ -6,7 +6,11 @@ describe('Music', () => {
 
   test('Should render', () => {
     render(
-      <Music />
+      <Music user={{
+        name: '',
+        imageUrl: '',
+        accessToken: ''
+      }}/>
     );
     const element = screen.getByText(/Music/);
     expect(element).toBeInTheDocument();
