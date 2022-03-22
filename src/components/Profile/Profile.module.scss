@@ -1,0 +1,13 @@
+.container {
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+
+.profilePicture {
+  border-radius: 50%;
+  width: 12rem;
+  aspect-ratio: 1/1;
+}
