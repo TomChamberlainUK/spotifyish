@@ -10,6 +10,7 @@ type Props = {
 export default function Dashboard({ user, signOut }: Props) {
   return (
     <div className={styles.container}>
+      <h1>Dashboard</h1>
       <Profile user={user} signOut={signOut} />
     </div>
   );
