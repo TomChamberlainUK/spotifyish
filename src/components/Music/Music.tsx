@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import styles from './Music.module.scss';
+import ArtistList, { ArtistListItem } from '../ArtistList/ArtistList';
 
 type Props = {
   user: User;
@@ -109,15 +110,16 @@ export default function Music({ user }: Props) {
       <div className={styles.container}>
         <div className={styles.artistsContainer}>
           <h3>Artists</h3>
-          <ul>
+          <ArtistList>
             {
               artists.map(({ id, name }) => (
-                <li key={id}>
-                  <p>{name}</p>
-                </li>
+                <ArtistListItem
+                  key={id}
+                  name={name}
+                />
               ))
             }
-          </ul>
+          </ArtistList>
         </div>
         <div className={styles.tracksContainer}>
           <ul>
