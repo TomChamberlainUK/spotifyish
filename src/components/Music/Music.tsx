@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import styles from './Music.module.scss';
 import ArtistList, { ArtistListItem } from '../ArtistList/ArtistList';
+import TrackGrid, { TrackGridItem } from '../TrackGrid/TrackGrid';
 
 type Props = {
   user: User;
@@ -16,8 +17,8 @@ type Track = {
   name: string;
   artist: string;
   artistId: string;
+  album: string;
   imageUrl: string;
-  imageAlt: string;
 }
 
 export default function Music({ user }: Props) {
@@ -77,8 +78,8 @@ export default function Music({ user }: Props) {
               name: track.name,
               artist: artist.name,
               artistId: artist.id,
+              album: track.album.name,
               imageUrl: track.album.images[0].url,
-              imageAlt: track.album.name
             });
           }
           
@@ -104,6 +105,7 @@ export default function Music({ user }: Props) {
 
   }, [user]);
 
+  
   return (
     <>
       <h2>Music</h2>
@@ -122,17 +124,19 @@ export default function Music({ user }: Props) {
           </ArtistList>
         </div>
         <div className={styles.tracksContainer}>
-          <ul>
+          <TrackGrid>
             {
-              tracks.map(({ id, name, artist, imageUrl, imageAlt }) => (
-                <li key={id}>
-                  <img src={imageUrl} alt={`Album artwork for ${imageAlt} by ${artist}`}/>
-                  <h4>{artist}</h4>
-                  <p>{name}</p>
-                </li>
+              tracks.map(({ id, name, artist, album, imageUrl }) => (
+                <TrackGridItem
+                  key={id}
+                  name={name}
+                  artist={artist}
+                  album={album}
+                  imageUrl={imageUrl}
+                />
               ))
             }
-          </ul>
+          </TrackGrid>
         </div>
       </div>
     </>

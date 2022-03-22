@@ -1,0 +1,27 @@
+.gridContainer {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 1rem;
+  padding: 0;
+  width: 100%;
+}
+
+.itemContainer {
+  width: 100%;
+  list-style: none;
+}
+
+.image {
+  width: 100%;
+  aspect-ratio: 1/1;
+}
+
+.artist {
+  margin: 0;
+  font-size: 1rem;
+}
+
+.name {
+  margin: 0;
+  font-size: 1rem;
+}
