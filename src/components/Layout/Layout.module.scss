@@ -3,8 +3,10 @@
   top: 0;
   display: grid;
   place-content: center;
+  border-bottom: solid 0.25rem black;
   width: 100%;
   height: 3rem;
+  background-color: white;
 }
 
 .title {
@@ -17,6 +19,6 @@
 
 .content {
   padding-top: 3rem;
-  min-height: calc(100% - 3rem);
+  min-height: calc(100% - 3.25rem);
   height: 1px; // To allow children to use percentage heights
 }
