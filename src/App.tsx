@@ -20,6 +20,7 @@ export default function App() {
   function signOut() {
     setUser(null);
     window.localStorage.removeItem('access_token');
+    window.localStorage.removeItem('access_token_expiration');
   }
 
   return (
