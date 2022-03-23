@@ -1,46 +1,70 @@
-# Getting Started with Create React App
+# 🎧 Spotify*ish*
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+> Please note that this is part of a technical test performed under time constraints, this README will reflect the requirements of the test. The test is a *functional* one, and so design has not been taken into consideration past simple usability.
 
-## Available Scripts
+## Requirements
 
-In the project directory, you can run:
+✅ A user should be able to view a grid of their recently played tracks.
+- ✅ This should include a relevant image for each track.
 
-### `npm start`
+✅ In a sidebar, a user should be able to view a list of all recently played artists.
+- ✅ This should be in order of most recently played.
+- ✅ On click of an artist, the grid of recently played tracks should be filtered by the relevant artist.
+- ✅ BONUS | On refresh of the page, any applied filter should be persisted.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## Getting Started
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+> Ensure both Node/npm are installed (I'm using Node.js v17.3.1 and npm v8.3.0).
 
-### `npm test`
+Download, clone, or fork this repository, navigate to the route folder in a terminal and enter:
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+```bash
+npm i
+```
 
-### `npm run build`
+This will install all dependencies and ensure the app is ready to run.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Scripts
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+> This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app). The existing start, build, test, and eject scripts are still intact.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### Start
 
-### `npm run eject`
+To start the app running in development mode at [http://localhost:3000](http://localhost:3000):
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+```bash
+npm run start
+```
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### Test
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+To run tests using Jest:
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+```bash
+npm run test
+```
 
-## Learn More
+### Build
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+To build the application ready for production:
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+```bash
+npm run build
+```
+
+### Serve
+
+Once `built` the application is ready to be served at [http://localhost:3000](http://localhost:3000):
+
+```bash
+npm run serve
+```
+
+## Tech Stack
+
+This project was built using:
+
+- `Typescript` — The type checking helps to improve stability of the app by catching most type-mismatch bugs before they appear.
+- `React.js` — Simple and streamlined DOM manipulation alongside great module encapsulation. Simplifies the production process and allows for great scalability. For this project I used the `npx create-react-app` script due to time constraints. Normally I prefer to build apps from scratch with `webpack` so I have more fine-tuned granular control over compilation.
+- `Express.js` — Simple framework for serving files, handles serving a static folder with ease.
+- `Jest` — For straightforward asynchronous testing. Works well with React using the correct `@testing-library`s.
